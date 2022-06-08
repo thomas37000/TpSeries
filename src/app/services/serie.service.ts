@@ -9,7 +9,7 @@ import { Saison } from '../models/saison-models';
 })
 export class SerieService {
   public series$: Observable<Series[]>;
-   public serie$!: Observable<Series>;
+  public serie$!: Observable<Series>;
 
   private _http: HttpClient;
 
@@ -18,23 +18,20 @@ export class SerieService {
     this.series$ = this._http.get<Series[]>(
       'http://10.103.0.254:8000/api/series.json'
     );
-    
   }
 
   //construire les saisons selon l'id
-  // this.serie$ = this._http.get<Series>(
-  //   'http://10.103.0.254:8000/api/series/' + id + '.json'
-  // );
-  
+  public getSaisonById(id: number): void {
+    this.serie$ = this._http.get<Series>(
+      'http://10.103.0.254:8000/api/series/' + id + '.json'
+    );
+  }
 
   public getSeries(): Observable<Series[]> {
     return this.series$;
   }
 
- // public getSaisons(): Observable<Series> {
-   // this.serie$ = this._http.get<Series>(
-  //   'http://10.103.0.254:8000/api/series/' + id + '.json'
-  // );
+  public getSaisons(): Observable<Series> {
+    return this.serie$;
   }
-
-
+}

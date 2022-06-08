@@ -15,21 +15,20 @@ export class SerieComponent implements OnInit {
   public serie$!: Observable<Series>;
   public loading: boolean;
 
-  constructor(private http: HttpClient) {
-    this.loading = true;
-    this.series$ = this.http.get<Series[]>('http://10.103.0.254:8000/series');
-  }
-
-  // constructor(private svc: SerieService) {
-  //    this.series$ = this.svc.getSeries();
-  //    this.serie$ = this.svc.getSaisons();
+  // constructor(private http: HttpClient) {
   //   this.loading = true;
+  //   this.series$ = this.http.get<Series[]>('http://10.103.0.254:8000/series');
   // }
 
+  constructor(private svc: SerieService) {
+     this.series$ = this.svc.getSeries();
+    this.loading = true;
+  }
+
   public afficherSaison(id: any) {
-    this.serie$ = this.http.get<Series>(
-      'http://10.103.0.254:8000/api/series/' + id + '.json'
-    );
+    this.svc.getSaisonById(id);
+    // metrte à jour quand je clique
+    this.serie$ = this.svc.getSaisons();
   }
 
   // public afficherSaison(id: any) {
